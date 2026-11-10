@@ -1,0 +1,21 @@
+# Rebuilds schedule.json + stations.json from LA Metro's official GTFS every night.
+# Choose stations and bus stops in tools/config.json (see GUIDE.md). Run it by hand: Actions tab > Update schedule data > Run workflow.
+name: Update schedule data
+on:
+  schedule: [{ cron: "30 11 * * *" }]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python tools/build_schedule.py --config tools/config.json
+      - run: |
+          git config user.name "schedule-bot"
+          git config user.email "schedule-bot@users.noreply.github.com"
+          git add -A schedule.json stations.json sched
+          git diff --cached --quiet || (git commit -m "Update schedule data" && git push)

@@ -1,0 +1,8 @@
+{
+  "primary": ["South Pasadena Station", "Union Station", "LAX / Metro Transit Center"],
+  "combine_bus": [{ "station": "Union Station", "radius_km": 0.35 }],
+  "bus_match": [{ "route": "78", "names": ["Main/Hampden", "Main/Fremont", "Main/Atlantic", "Main/5th", "Main/2nd", "Main/Garfield"] }],
+  "bus_near": [],
+  "bus_stops": [],
+  "extra_hubs": []
+}
